@@ -23,7 +23,7 @@ app = FastAPI()
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://*.netlify.app"],
+    allow_origins=["http://localhost:5173", "https://*.netlify.app", "http://aengmung.tplinkdns.com", "http://aengmung.tplinkdns.com:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
