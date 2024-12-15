@@ -45,7 +45,10 @@ async def upload_knowledge_file(file: UploadFile):
         
         content = await file.read()
         save_knowledge_file(file.filename, content)
-        return {"message": "File uploaded successfully"}
+        return Response(
+            content=json.dumps({"message": "File uploaded successfully"}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -79,7 +82,10 @@ async def download_knowledge_file(filename: str):
 async def delete_knowledge_file_endpoint(filename: str):
     try:
         delete_knowledge_file(filename)
-        return {"message": "File deleted successfully"}
+        return Response(
+            content=json.dumps({"message": "File deleted successfully"}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="File not found")
     except Exception as e:
@@ -89,7 +95,10 @@ async def delete_knowledge_file_endpoint(filename: str):
 async def rebuild_knowledge_database():
     try:
         rebuild_database()
-        return {"message": "Database rebuilt successfully"}
+        return Response(
+            content=json.dumps({"message": "Database rebuilt successfully"}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -98,7 +107,10 @@ async def rebuild_knowledge_database():
 async def query_ai(query: dict = Body(...)):
     try:
         response = await query_knowledge(query["query"])
-        return {"response": response}
+        return Response(
+            content=json.dumps({"response": response}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except Exception as e:
         logger.error(f"Error querying AI: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -135,10 +147,10 @@ async def create_knowledge(knowledge: dict = Body(...), db: sqlite3.Connection =
         new_id = cursor.lastrowid
         logger.info(f"Knowledge created successfully with ID: {new_id}")
         
-        return {
-            "message": "Knowledge created successfully",
-            "id": new_id
-        }
+        return Response(
+            content=json.dumps({"message": "Knowledge created successfully", "id": new_id}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         db.rollback()
@@ -192,7 +204,10 @@ async def get_all_knowledge(db: sqlite3.Connection = Depends(get_db)):
                 continue
             
         logger.info(f"Retrieved {len(result)} knowledge items")
-        return {"items": result}
+        return Response(
+            content=json.dumps({"items": result}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
@@ -221,7 +236,10 @@ async def get_knowledge(knowledge_id: int, db: sqlite3.Connection = Depends(get_
             "summary": json.loads(row[5]) if row[5] else {}
         }
         logger.info(f"Retrieved knowledge with ID: {knowledge_id}")
-        return knowledge
+        return Response(
+            content=json.dumps(knowledge, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
@@ -242,7 +260,10 @@ async def delete_knowledge(knowledge_id: int, db: sqlite3.Connection = Depends(g
         cursor.execute("DELETE FROM knowledge WHERE id = ?", (knowledge_id,))
         db.commit()
         logger.info(f"Knowledge deleted successfully with ID: {knowledge_id}")
-        return {"message": "Knowledge deleted successfully"}
+        return Response(
+            content=json.dumps({"message": "Knowledge deleted successfully"}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         db.rollback()
@@ -287,7 +308,10 @@ async def update_knowledge(knowledge_id: int, knowledge: dict = Body(...), db: s
         ))
         db.commit()
         
-        return {"message": "Knowledge updated successfully"}
+        return Response(
+            content=json.dumps({"message": "Knowledge updated successfully"}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         db.rollback()
@@ -334,7 +358,10 @@ async def get_related_knowledge(knowledge_id: int, db: sqlite3.Connection = Depe
         
         related_items = find_related_knowledge(knowledge, all_knowledge)
         logger.info(f"Retrieved related knowledge for ID: {knowledge_id}")
-        return related_items
+        return Response(
+            content=json.dumps(related_items, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
@@ -374,7 +401,10 @@ async def search_knowledge(query: dict = Body(...), db: sqlite3.Connection = Dep
             search_results.append(result)
         
         logger.info(f"Retrieved search results for query: {query}")
-        return search_results
+        return Response(
+            content=json.dumps(search_results, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except sqlite3.Error as e:
         logger.error(f"Database error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
@@ -404,7 +434,10 @@ async def get_knowledge_for_graph(db: sqlite3.Connection = Depends(get_db)):
                 "references": json.loads(row[6]) if row[6] else []
             })
         
-        return {"items": items}
+        return Response(
+            content=json.dumps({"items": items}, ensure_ascii=False),
+            media_type="application/json; charset=utf-8"
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
