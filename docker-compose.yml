@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_API_URL=http://192.168.0.112:8000
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
