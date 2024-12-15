@@ -1,0 +1,41 @@
+title: "네트워크 보안 기초"
+level: 3
+tags:
+  - network
+  - security
+  - firewall
+  - encryption
+content: |
+  네트워크 보안은 현대 컴퓨터 네트워크에서 가장 중요한 요소 중 하나입니다.
+
+  1. 주요 보안 위협
+     - DDoS 공격
+     - 중간자 공격
+     - 패킷 스니핑
+     - SQL 인젝션
+     - 크로스 사이트 스크립팅 (XSS)
+
+  2. 보안 메커니즘
+     - 암호화 (Encryption)
+       * 대칭키 암호화
+       * 공개키 암호화
+       * SSL/TLS
+     - 인증 (Authentication)
+     - 접근 제어 (Access Control)
+     - 무결성 검사 (Integrity Check)
+
+  3. 방화벽 (Firewall)
+     - 패킷 필터링
+     - 상태 검사
+     - 애플리케이션 레벨 게이트웨이
+     - DMZ 구성
+
+  4. 보안 프로토콜
+     - HTTPS
+     - IPSec
+     - SSH
+     - VPN
+summary: "네트워크 보안의 주요 위협과 대응 메커니즘, 방화벽, 보안 프로토콜"
+references:
+  - "Network Security Essentials - William Stallings"
+  - "https://www.cisco.com/c/en/us/products/security/what-is-network-security.html"

@@ -1,0 +1,41 @@
+title: "라우팅과 스위칭"
+level: 2
+tags:
+  - network
+  - routing
+  - switching
+content: |
+  라우팅과 스위칭은 네트워크 데이터 전송의 핵심 기술입니다.
+
+  1. 라우팅 (Routing)
+     - 패킷의 최적 경로 결정
+     - 라우팅 프로토콜
+       * RIP (Routing Information Protocol)
+       * OSPF (Open Shortest Path First)
+       * BGP (Border Gateway Protocol)
+     - 정적 라우팅 vs 동적 라우팅
+     - 라우팅 테이블 관리
+
+  2. 스위칭 (Switching)
+     - MAC 주소 기반 전송
+     - 스위칭 방식
+       * Store-and-Forward
+       * Cut-Through
+       * Fragment-Free
+     - VLAN (Virtual LAN)
+     - Spanning Tree Protocol
+
+  3. 라우터 vs 스위치
+     - 동작 계층 차이
+     - 기능 차이
+     - 용도 차이
+     - 성능 특성
+
+  4. 네트워크 세그멘테이션
+     - 브로드캐스트 도메인
+     - 충돌 도메인
+     - 서브넷팅
+summary: "네트워크 데이터 전송의 핵심인 라우팅과 스위칭의 개념과 동작 원리"
+references:
+  - "Computer Networks - Andrew S. Tanenbaum"
+  - "Cisco Networking Academy"

@@ -1,0 +1,36 @@
+title: "TCP/IP 프로토콜 스택"
+level: 2
+tags:
+  - network
+  - protocol
+  - tcp/ip
+content: |
+  TCP/IP 프로토콜 스택은 현대 인터넷의 기반이 되는 통신 프로토콜입니다.
+
+  1. TCP (Transmission Control Protocol)
+     - 신뢰성 있는 데이터 전송
+     - 연결 지향적 프로토콜
+     - 흐름 제어와 혼잡 제어
+     - 순서 보장
+     - 오류 검출 및 복구
+
+  2. IP (Internet Protocol)
+     - 패킷 라우팅
+     - 주소 지정
+     - 비연결형 프로토콜
+     - Best-effort 전달
+
+  3. 주요 응용 계층 프로토콜
+     - HTTP: 웹 통신
+     - FTP: 파일 전송
+     - SMTP: 이메일 전송
+     - DNS: 도메인 이름 해석
+
+  4. 포트 번호
+     - Well-known ports (0-1023)
+     - Registered ports (1024-49151)
+     - Dynamic ports (49152-65535)
+summary: "인터넷의 기반이 되는 TCP/IP 프로토콜 스택의 구조와 주요 특징"
+references:
+  - "RFC 793 - TCP"
+  - "RFC 791 - IP"
