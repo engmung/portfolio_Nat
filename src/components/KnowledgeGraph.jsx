@@ -4,6 +4,8 @@ import SpriteText from 'three-spritetext';
 import KnowledgePopup from './KnowledgePopup';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const createLinks = (nodes) => {
   const links = [];
   const nodeMap = new Map(nodes.map(node => [node.id, node]));
@@ -83,7 +85,7 @@ const Graph = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/knowledge/files');
+        const response = await fetch(`${API_URL}/knowledge/files`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

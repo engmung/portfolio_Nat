@@ -14,6 +14,8 @@ import KnowledgeFileManager from './components/KnowledgeFileManager';
 import AISearchBar from './components/AISearchBar';
 import AIResponsePopup from './components/AIResponsePopup';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const theme = createTheme({
   palette: {
     mode: 'dark',
@@ -26,7 +28,7 @@ const App = () => {
 
   const handleAISearch = async (query) => {
     try {
-      const response = await fetch('http://localhost:8000/ai/query', {
+      const response = await fetch(`${API_URL}/ai/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,14 @@
 # Dependencies
 /node_modules
 /venv
-/.env
+
+# Environment variables
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
 
 # Build
 /dist

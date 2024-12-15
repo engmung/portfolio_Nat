@@ -25,7 +25,10 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     print("Warning: OPENAI_API_KEY not found in environment variables")
 
-client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+client = AsyncOpenAI(
+    api_key=OPENAI_API_KEY,
+    base_url="https://api.openai.com/v1"
+)
 
 async def get_embedding(text: str) -> list[float]:
     """Get embedding for text using OpenAI's API."""
@@ -133,21 +136,22 @@ async def query_knowledge(query: str) -> str:
         context = "\n\n".join([f"# {title}\n{content}" for title, content in rows])
         
         # Prepare the prompt
-        prompt = f"""Here is our knowledge base content:
+        prompt = f"""다음은 우리의 지식 베이스 내용입니다:
 
 {context}
 
-User Query: {query}
+사용자 질문: {query}
 
-Please provide a detailed answer based on the knowledge base content above. 
-If the knowledge base doesn't contain relevant information, please say so.
+위의 지식 베이스 내용을 바탕으로 자세한 답변을 제공해주세요.
+지식 베이스에 관련 정보가 없다면 그렇다고 말씀해 주세요.
+답변은 반드시 한국어로 작성해주세요.
 """
 
         # Call OpenAI API
         response = await client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided knowledge base."},
+                {"role": "system", "content": "당신은 한국어로 답변하는 친절한 지식 도우미입니다."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,

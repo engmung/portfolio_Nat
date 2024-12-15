@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const KnowledgeFileManager = () => {
   const [knowledgeFiles, setKnowledgeFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -7,7 +9,7 @@ const KnowledgeFileManager = () => {
 
   const fetchKnowledgeFiles = async () => {
     try {
-      const response = await fetch('http://localhost:8000/knowledge/files');
+      const response = await fetch(`${API_URL}/knowledge/files`);
       if (!response.ok) {
         throw new Error('Failed to fetch knowledge files');
       }
@@ -37,7 +39,7 @@ const KnowledgeFileManager = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/knowledge/upload', {
+      const response = await fetch(`${API_URL}/knowledge/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -53,7 +55,7 @@ const KnowledgeFileManager = () => {
   const handleDownload = async (filename) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/knowledge/download/${filename}`
+        `${API_URL}/knowledge/download/${filename}`
       );
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -73,7 +75,7 @@ const KnowledgeFileManager = () => {
     if (!confirm('정말 삭제하시겠습니까?')) return;
     
     try {
-      const response = await fetch(`http://localhost:8000/knowledge/files/${filename}`, {
+      const response = await fetch(`${API_URL}/knowledge/files/${filename}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('삭제 실패');
@@ -86,7 +88,7 @@ const KnowledgeFileManager = () => {
 
   const handleRebuild = async () => {
     try {
-      const response = await fetch('http://localhost:8000/knowledge/rebuild', {
+      const response = await fetch(`${API_URL}/knowledge/rebuild`, {
         method: 'POST'
       });
       if (!response.ok) throw new Error('재구축 실패');
@@ -135,7 +137,7 @@ const KnowledgeFileManager = () => {
           DB 재구축
         </button>
         <button 
-          onClick={() => window.location.href = 'http://localhost:8000/knowledge/template'}
+          onClick={() => window.location.href = `${API_URL}/knowledge/template`}
           style={{ 
             backgroundColor: '#9C27B0',
             color: 'white',
